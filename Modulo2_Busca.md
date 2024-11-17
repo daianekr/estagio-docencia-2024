@@ -164,11 +164,11 @@ Começaremos em alguns minutos...
     - DFS: Não é ótimo.
 ---
   - **Complexidade de Tempo**:
-    - BFS: \(O(b^d)\), onde \(b\) é o fator de ramificação e \(d\) a profundidade da solução.
-    - DFS: \(O(b^m)\), onde \(m\) é a profundidade máxima do espaço de busca.
+    - BFS: $O(b^d)$, onde $b$ é o fator de ramificação e \(d\) a profundidade da solução.
+    - DFS: $O(b^m)$, onde $m$ é a profundidade máxima do espaço de busca.
   - **Complexidade de Espaço**:
-    - BFS: \(O(b^d)\), elevado para espaços grandes.
-    - DFS: \(O(b \cdot m)\), menor consumo de memória.
+    - BFS: $O(b^d)$, elevado para espaços grandes.
+    - DFS: $O(b \cdot m)$, menor consumo de memória.
   
 - **Quando Utilizar**:
   - **BFS** é indicado para problemas onde o objetivo é encontrar o menor número de passos.
@@ -178,6 +178,104 @@ Começaremos em alguns minutos...
 
 
 ---
+
+### **Algoritmo A*** 
+
+O **algoritmo A*** (ou **A-Star**) é um dos algoritmos mais eficientes e amplamente usados para encontrar o caminho mais curto em grafos. Ele é uma técnica de busca informada, ou seja, utiliza conhecimento adicional sobre o problema (por meio de uma heurística) para tomar decisões mais inteligentes durante a busca. 
+
+---
+
+#### **Como funciona o A***?
+
+O algoritmo combina as ideias de:
+- **Busca em largura (BFS)**: que explora os nós em níveis, garantindo a descoberta do caminho mais curto em grafos não ponderados.
+- **Busca em profundidade (DFS)**: que busca um caminho até a meta explorando o máximo possível os ramos antes de retroceder.
+  
+A principal inovação do A* está na função de avaliação usada para priorizar os nós a serem explorados:
+$$
+f(n) = g(n) + h(n)
+$$
+Onde:
+- $ f(n) $: custo total estimado para chegar ao objetivo a partir do nó $ n $; 
+- $ g(n) $: custo real acumulado para chegar ao nó $ n $ a partir do início.
+- $ h(n) $: estimativa heurística do custo para ir do nó $n$ até o objetivo.
+
+Se a heurística $ h(n) $ for **admissível** (ou seja, nunca superestima o custo real para chegar ao objetivo), o A* garante encontrar o caminho mais curto.
+
+---
+
+### **Relação com os algoritmos BFS e DFS?**
+
+1. **Busca em largura (BFS)**:
+   - Explora todos os caminhos de custo igual antes de avançar para caminhos de custo maior.
+   - Sem heurística: equivalente a A* com $ h(n) = 0 $.
+   - Muito eficiente para grafos não ponderados, mas não considera o custo futuro.
+
+2. **Busca em profundidade (DFS)**:
+   - Explora um caminho até o final antes de retroceder.
+   - Pode ser mais rápido para encontrar um caminho, mas não necessariamente o mais curto.
+   - Diferentemente do A*, não utiliza heurísticas e pode explorar áreas irrelevantes.
+
+3. **A***:
+   - Adiciona inteligência à exploração, combinando o custo acumulado $ g(n) $ com uma previsão informada $ h(n) $.
+   - Equilibra a força bruta do BFS com a orientação do DFS.
+
+---
+
+### **Exemplo: planejamento de rotas**
+
+Imagine que você está projetando um sistema GPS para calcular a rota mais curta entre duas cidades. O mapa pode ser representado como um grafo onde:
+- Os **nós** representam cidades.
+- As **arestas** têm pesos que indicam a distância entre cidades.
+
+#### **Passo a Passo com A***:
+1. Defina a cidade de partida A e a cidade de destino G.
+2. Use a distância percorrida $ g(n) $ para calcular o custo até o nó atual.
+3. Use a distância "em linha reta" até o destino $ h(n) $ como heurística.
+4. Calcule $ f(n) = g(n) + h(n) $ para cada nó adjacente.
+5. Escolha o nó com menor valor de $ f(n)$ e continue o processo.
+
+---
+
+#### **Comparação com BFS e DFS no Exemplo**:
+- **DFS** pode escolher um caminho muito longo sem perceber que há atalhos.
+- **BFS** consideraria todas as rotas possíveis em ordem crescente de custo, gastando tempo explorando nós desnecessários.
+- **A***, ao usar a heurística, evitaria nós irrelevantes, indo mais rapidamente ao destino.
+
+---
+
+### **Aplicação Método Manhattan no Algoritmo A\***
+
+Considere a seguinte imagem: 
+
+ ![width:200px, bg right](manhattan_distance.png)
+
+Uma abordagem comum para calcular a heurística $ h(n) $ no algoritmo A\* é chamada de **método Manhattan**. Esse método calcula o número total de movimentos necessários, somando as distâncias horizontais e verticais entre o nó atual e o nó objetivo, ignorando movimentos diagonais e quaisquer obstáculos no caminho.
+
+A fórmula para o cálculo da heurística é:
+
+$$
+h = |x_{\text{inicial}} - x_{\text{destino}}| + |y_{\text{inicial}} - y_{\text{destino}}|
+$$
+
+Onde:
+- $ x_{\text{inicial}} $ e $ y_{\text{inicial}} $: coordenadas do ponto inicial.
+- $ x_{\text{destino}} $ e $ y_{\text{destino}} $: coordenadas do ponto objetivo.
+
+Essa heurística é exata sempre que o caminho segue linhas retas, ou seja, quando o A\* encontra caminhos que são combinações de movimentos horizontais e verticais. No entanto, em algumas situações, pode ser preferível usar uma heurística que favoreça movimentos mais diretamente alinhados ao destino.
+
+### **Referência**
+
+O exemplo foi adaptado do artigo "[A-Star Search Algorithm](https://brilliant.org/wiki/a-star-search/)" no site Brilliant.org.
+
+### **Exemplo de Aplicação**
+
+Imagine um tabuleiro de jogo onde o objetivo é mover-se de uma posição inicial para uma posição final sem passar por obstáculos. O método Manhattan calcularia o custo baseado no número de células necessárias para alcançar o destino, ignorando diagonais.
+
+---
+
+
+
 # Lista de Exercicios Módulo 2 - Algoritmos de Busca
 
 
@@ -191,11 +289,18 @@ Começaremos em alguns minutos...
 ## Exercício 2: Busca em Largura (BFS)
 **Pergunta**: Dado o grafo abaixo, simule passo a passo a execução do algoritmo **BFS** começando do nó A e indique a ordem em que os nós serão visitados.
 
-  A
- / \
-B   C
-/\   \
-D E   F
+<!-- melhorar a visualização do grafo abaixo  -->
+::: mermaid
+graph TD
+    A --> B
+    A --> C
+    B --> D
+    B --> E
+    C --> F
+
+:::
+
+
 
 
 **Objetivo**: Testar a compreensão da lógica de busca em largura e a sua aplicação em grafos.
