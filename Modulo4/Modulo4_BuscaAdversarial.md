@@ -98,3 +98,144 @@ $$
 - Dois ou mais agentes (jogadores).
 - Objetivos conflitantes: um ganha e o outro perde.
 - Estados de jogo e ações bem definidos.
+
+---
+
+# **Representação em Árvores de Decisão:**
+### Árvore de jogo:
+
+Representa os estados possíveis do jogo a partir do estado inicial.
+
+- **Nós:** Representam estados do jogo.
+- **Arestas:** Representam as ações (jogadas).
+
+O nível da árvore alterna entre os jogadores (Max e Min).
+
+---
+
+<!-- $$
+\begin{tikzpicture}[
+  level 1/.style={sibling distance=30mm},
+  level 2/.style={sibling distance=15mm},
+  edge from parent/.style={draw, -latex},
+  every node/.style={circle, draw}
+]
+
+% Root node
+\node {Estado Inicial}
+  child {node {Max}
+    child {node {X}
+      child {node {...}}
+      child {node {...}}
+    }
+    child {node {O}
+      child {node {...}}
+      child {node {...}}
+    }
+  };
+
+\end{tikzpicture}
+$$ -->
+
+# **Representação em Árvores de Decisão:**
+### Exemplo Pedra, Papel e Tesoura:
+
+![Árvore de Decisão](arvore-jokenpo.png)
+
+---
+
+# **Estratégia de Busca Adversarial:**
+
+O objetivo é planejar os próximos movimentos antecipando as respostas do adversário.
+#### O que cada jogador faz:
+- **Maximizar o ganho do jogador principal (Max):** o  jogador Max (geralmente o "agente") quer alcançar o maior valor possível para seu movimento.
+- **Minimizar as chances do oponente (Min):** o jogador Min (o adversário) quer impedir que o jogador Max consiga o melhor resultado, minimizando os ganhos de Max.
+
+Pense em uma negociação. Cada parte tenta prever o próximo movimento do oponente para decidir a melhor estratégia.
+
+---
+
+# **Passos do Algoritmo Minimax:**
+O algoritmo segue os seguintes passos principais:
+
+1. **Expansão da Árvore:**
+Expanda a árvore até atingir um estado terminal ou até que a profundidade máxima seja alcançada.
+2. **Avaliação do Estado Terminal:**
+Atribua um valor (ou utilidade) a cada estado terminal. Esses valores indicam o valor do jogo para o jogador Max (exemplo: +1 para vitória, -1 para derrota, 0 para empate).
+3. **Propagação de Valores de Baixo para Cima:**
+A partir dos estados terminais, os valores são propagados para cima da árvore.
+Max escolhe o maior valor entre as opções (pois ele quer maximizar suas chances).
+Min escolhe o menor valor (porque ele quer minimizar a vantagem de Max).
+
+Essa propagação acontece até que o valor de cada nó na árvore seja determinado, e o valor do nó raiz (estado inicial) representará a melhor escolha do jogador Max.
+
+---
+
+# **Árvore de Decisão**
+O jogo começa com um tabuleiro vazio, e ambos os jogadores escolhem uma célula para colocar sua marca alternadamente. O objetivo é alinhar 3 marcas na horizontal, vertical ou diagonal.
+
+### Passos:
+- **Estado Inicial:** O tabuleiro está vazio.
+- **Jogada de Max (X):** Max faz sua jogada e coloca "X" em uma célula vazia.
+- **Jogada de Min (O):** Min faz sua jogada em resposta, colocando "O" em uma célula vazia.
+- **Expansão da Árvore:**  A partir deste ponto, a árvore de decisão se expande, explorando todas as possibilidades de jogadas subsequentes para ambos os jogadores.
+
+
+--- 
+# **Árvore de Decisão**
+
+- **Estados Terminais:** A árvore de decisão se expandirá até um estado terminal (vitória para "X", vitória para "O", ou empate).
+- **Avaliação:** Cada estado terminal recebe um valor de utilidade:
+Vitória de "X" (Max): +1
+Vitória de "O" (Min): -1
+Empate: 0
+
+--- 
+
+:::mermaid
+graph TD
+    A[Estado Inicial (Tabuleiro Vazio)]
+    A1[Max (X)]
+    A2[Min (O)]
+    A3[Max (X)]
+    A4[Max (X)]
+    A5[Max (X)]
+    
+    A --> A1
+    A1 --> A2
+    A2 --> A3
+    A2 --> A4
+    A1 --> A5
+:::
+
+---
+
+# **Pseudo-código:**
+
+
+```plaintext
+função minimax(estado, profundidade, eh_maximizador):
+    se jogo_terminado(estado) ou profundidade == 0:
+        retornar avaliar_estado(estado)  // Avalia o estado terminal
+    
+    se eh_maximizador:
+        max_avaliação = -infinito
+        para cada movimento possível em obter_movimentos_possiveis(estado):
+            avaliação = minimax(fazer_movimento(estado, movimento), profundidade - 1, falso)
+            max_avaliação = máximo(max_avaliação, avaliação)
+        retornar max_avaliação
+    senão:
+        min_avaliação = infinito
+        para cada movimento possível em obter_movimentos_possiveis(estado):
+            avaliação = minimax(fazer_movimento(estado, movimento), profundidade - 1, verdadeiro)
+            min_avaliação = mínimo(min_avaliação, avaliação)
+        retornar min_avaliação
+```
+
+
+
+
+
+
+
+
