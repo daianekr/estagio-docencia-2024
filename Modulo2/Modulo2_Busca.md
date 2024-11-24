@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 theme: beam
 ---
 
@@ -31,7 +31,7 @@ Começaremos em alguns minutos...
   
 ---
 
-# O que são Algoritmos de Busca?
+## **O que são Algoritmos de Busca?**
 
 <br>
 
@@ -41,10 +41,11 @@ Começaremos em alguns minutos...
 
 ---
 
-**Espaço de Estados**:
+## **Espaço de Estados**:
 <br>
+
   - Um **espaço de estados** é a representação de todos os estados possíveis de um problema e das transições que podem ocorrer entre esses estados.
-  <br>
+
   - No problema do labirinto, cada posição no labirinto é um 
   **estado**, e cada movimento (para cima, para baixo, para a esquerda, para a direita) representa uma **transição entre estados**.
 
@@ -52,8 +53,9 @@ Começaremos em alguns minutos...
 
 ---
 
- **Problemas de Busca**:
+ ## **Problemas de Busca**:
  <br>
+
   - Em IA, **problemas de busca** envolvem a navegação por um espaço de estados para encontrar um caminho do estado inicial até o estado objetivo.
   <br>
   - **Elementos principais de um problema de busca**:
@@ -61,13 +63,65 @@ Começaremos em alguns minutos...
     - **Ações**: Movimentos ou decisões possíveis em cada estado.
     - **Estado Objetivo**: Estado que queremos alcançar.
     - **Custo do Caminho**: Soma dos custos das ações para chegar ao estado objetivo.
-  ---
-  
- ![center](labirinto2.png "Jogo do Labirinto")
+---
+
+# **Mapa da Romenia**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![w:800 h:500 bg](arad.png "Jogo do Labirinto")
+
+---
+<br>
+
+# **Problema de Busca - Chegar em Bucharest**
+
+<br>
+
+  - **Estado Inicial**: Ponto de partida da busca: Em(Arad).
+  - **Ações**: Movimentos ou decisões possíveis em cada estado: Ir(Cidade, PróximaCidade).
+  - **Estado Objetivo**: Estado que queremos alcançar: Em(Bucharest)
+  - **Custo do Caminho**: Custo numérico de cada caminho: Distância em KM entre as cidades.
+  - **Espaço de Estados**: Conjunto de estados que podem ser atingidos a partir do
+estado inicial: Mapa da Romênia
+
+---
+<br>
+
+## **Qual Estado inicial, Ações, Estado objetivo, Custo e Espaço de Estados?**
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+![w:700 h:500 bg](labirinto2.png "Jogo do Labirinto")
 
 ---
 
 ### **Busca Não Informada (Cega)**
+
  A **busca não informada** é uma técnica onde o algoritmo explora o espaço de estados sem informações adicionais sobre a proximidade do objetivo. Não utiliza nenhuma **heurística** para guiar a busca.
 
 **Características**:
