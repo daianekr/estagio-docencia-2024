@@ -232,10 +232,63 @@ função minimax(estado, profundidade, eh_maximizador):
         retornar min_avaliação
 ```
 
+---
+
+# **Poda Alfa-Beta:**
+A poda alfa-beta é uma otimização do algoritmo Minimax que reduz o número de nós a serem avaliados na árvore de busca, sem afetar o resultado final. 
+
+- **Objetivo da Poda Alfa-Beta:** o algoritmo visa cortar (poda) ramos da árvore de decisão que não precisam ser explorados, pois já sabemos que o jogador atual tomará uma decisão melhor sem considerar esses ramos.
+
+Em termos simples, a poda permite que o algoritmo Minimax ignore parte da árvore de decisão que não pode influenciar o resultado final.
+
+---
+
+# **Poda Alfa-Beta:** 
+
+Funcionamento: 
+
+**Valores Alfa e Beta:** 
+- Alfa é o melhor valor já encontrado para o jogador Max (o jogador que tenta maximizar sua pontuação).
+- Beta é o melhor valor já encontrado para o jogador Min (o jogador que tenta minimizar a pontuação de Max).
+
+**Propagação dos Valores:**
+
+A poda alfa-beta funciona atualizando os valores de alfa e beta enquanto a árvore de decisão é explorada.
+Quando um valor calculado se torna pior do que um valor já encontrado, o ramo da árvore pode ser descartado, ou "podado", pois não afetará a decisão final.
+
+---
+
+**Condição de Poda:**
+
+Se o valor de alfa for maior ou igual ao valor de beta, a pesquisa do ramo é interrompida, pois o jogador Max nunca escolheria esse caminho e o jogador Min nunca escolheria outro que causasse uma pontuação pior.
 
 
+---
+
+**Pseudo-código:**
 
 
-
-
-
+```plaintext
+função poda_alfa_beta(estado, profundidade, alfa, beta, é_maximizador):
+    se jogo_terminado(estado) ou profundidade == 0:
+        retornar avaliar_estado(estado)
+    
+    se é_maximizador:
+        max_avaliação = -infinito
+        para cada movimento possível em obter_movimentos_possiveis(estado):
+            avaliação = poda_alfa_beta(fazer_movimento(estado, movimento), profundidade - 1, alfa, beta, falso)
+            max_avaliação = máximo(max_avaliação, avaliação)
+            alfa = máximo(alfa, max_avaliação)
+            se beta <= alfa:
+                parar  // Poda
+        retornar max_avaliação
+    senão:
+        min_avaliação = infinito
+        para cada movimento possível em obter_movimentos_possiveis(estado):
+            avaliação = poda_alfa_beta(fazer_movimento(estado, movimento), profundidade - 1, alfa, beta, verdadeiro)
+            min_avaliação = mínimo(min_avaliação, avaliação)
+            beta = mínimo(beta, min_avaliação)
+            se beta <= alfa:
+                parar  // Poda
+        retornar min_avaliação
+````
