@@ -292,3 +292,16 @@ função poda_alfa_beta(estado, profundidade, alfa, beta, é_maximizador):
                 parar  // Poda
         retornar min_avaliação
 ````
+---
+
+**Explicação do Pseudocódigo:**
+
+- Função: poda_alfa_beta(estado, profundidade, alfa, beta, é_maximizador) é a função recursiva que recebe o estado atual do jogo, a profundidade da árvore de busca, os valores alfa e beta, e se o jogador atual é o Max ou o Min.
+
+- Condição de Parada: Se o estado é terminal (final do jogo) ou a profundidade máxima é alcançada, a função retorna o valor do estado avaliado.
+
+**Alfa e Beta:**
+
+- **Alfa** é o valor máximo que o jogador Max pode alcançar em qualquer ponto da árvore.
+- **Beta** é o valor mínimo que o jogador Min pode alcançar.
+A poda ocorre quando alfa >= beta, o que significa que o ramo da árvore já não pode contribuir para a solução ótima.
